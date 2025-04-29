@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 public class Main {
 
-    static public int depth = 0;
-    static final int x = 7;
-    static final int y = 6;
+    public static int depth = 0;
+    public static final int x = 7;
+    public static final int y = 6;
 
     public static void main(String[] args) {
 
@@ -127,10 +127,19 @@ public class Main {
         //it is also the best move if it isnt the first player
         if(turnsPlayed == 0 || turnsPlayed == 1){
             move = 3; //it uses zero index so the middle = 3
+            System.out.println("""
+                    ***
+                    MinMax made a hardcoded move!
+                    Duration: 0 milliseconds
+                    ***
+                    """
+            );
             return move;
         }
 
         int bestScore = Integer.MIN_VALUE;
+
+        long timerStart = System.currentTimeMillis();
 
         for (int i = 0; i < board.getX(); i++) { //x is width
             if(board.checkMove(i)){
@@ -146,8 +155,14 @@ public class Main {
                 }
             }
         }
+        long elapsedTime = System.currentTimeMillis() - timerStart;
 
-        System.out.println("***MinMax performed "+counter+" searches!***");
+        System.out.printf("""
+        ***
+        MinMax performed %s searches!
+        Duration: %s milliseconds
+        ***
+        """,counter,elapsedTime);
         counter = 0;
         return move;
     }
