@@ -4,10 +4,12 @@ import java.util.Scanner;
 public class Main {
 
     static public int depth = 0;
+    static final int x = 7;
+    static final int y = 6;
 
     public static void main(String[] args) {
 
-        Board board = new Board();
+        Board board = new Board(x,y);
 
 
         int turnsPlayed = 0;
@@ -61,7 +63,7 @@ public class Main {
                 System.out.println("Make your move (1-7)");
                 turnChoice = makeTurnChoice(scanner);
 
-                while (!board.checkMove(turnChoice - 1, currentPlayer)) {
+                while (!board.checkMove(turnChoice - 1)) {
                     System.out.println("Cannot make move!");
                     System.out.println("Make your move (1-7)");
                     turnChoice = makeTurnChoice(scanner);
@@ -129,7 +131,7 @@ public class Main {
         int bestScore = Integer.MIN_VALUE;
 
         for (int i = 0; i < board.getX(); i++) { //x is width
-            if(board.checkMove(i,computerPlayer)){
+            if(board.checkMove(i)){
 
                 int lastMoveY = board.makeMove(i,computerPlayer); //used to store y coordinate
                 int score = minMax(board, humanPlayer, computerPlayer,0,depth,false,
@@ -161,7 +163,7 @@ public class Main {
         if(isMaximising){
             int bestScore = Integer.MIN_VALUE;
             for (int i = 0; i < board.getX(); i++) {
-                if (board.checkMove(i, computerPlayer)) {
+                if (board.checkMove(i)) {
 
                     int lastMoveY = board.makeMove(i, computerPlayer); //used to store y coordinate
                     int score = minMax(board, humanPlayer, computerPlayer, depth + 1, depthGoal,
@@ -181,7 +183,7 @@ public class Main {
         else{
             int bestScore = Integer.MAX_VALUE;
             for (int i = 0; i < board.getX(); i++) {
-                if (board.checkMove(i, computerPlayer)) {
+                if (board.checkMove(i)) {
 
                     int lastMoveY = board.makeMove(i, humanPlayer); //used to store y coordinate
                     int score = minMax(board, humanPlayer, computerPlayer, depth + 1, depthGoal,
@@ -222,7 +224,7 @@ public class Main {
 
         for (int x = 0; x < board.getX(); x++) {
             for (int y = 0; y < board.getY(); y++) {
-                char current = board.getBoardAtXY(x,y);
+                char current = board.getBoardAt(x,y);
                 if (current == 'O'){
                     computerPoints += points[y][x];
                 }

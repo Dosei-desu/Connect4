@@ -1,14 +1,22 @@
 public class Board {
 
-    private final int x = 7;
-    private final int y = 6;
+    private final int x;
+    private final int y;
+    private final char empty = ' ';
+    private final char playerOneTile = 'X';
+    private final char playerTwoTile = 'O';
 
-    char[][] board = new char[x][y];
+    char[][] board;
 
-    public Board() {
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 6; j++) {
-                board[i][j] = ' ';
+    public Board(int x, int y) {
+        this.x = x;
+        this.y = y;
+
+        board = new char[x][y];
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                board[i][j] = empty;
             }
         }
     }
@@ -20,16 +28,12 @@ public class Board {
         return y;
     }
 
-    public char getBoardAtXY(int x, int y) {
-        return board[x][y];
-    }
-
-    public boolean checkMove(int x, int player){
-        char playerOneTile = 'X';
-        char playerTwoTile = 'O';
-
+    public boolean checkMove(int x){
+        //
         for (int i = 0; i < y; i++) {
-            if (board[x][y - 1 - i] != playerOneTile && board[x][y - 1 - i] != playerTwoTile) {
+            if (board[x][y - 1 - i] != playerOneTile &&
+                board[x][y - 1 - i] != playerTwoTile)
+            {
                 return true;
             }
         }
@@ -38,11 +42,11 @@ public class Board {
 
 
     public int makeMove(int x, int player) {
-        char playerOneTile = 'X';
-        char playerTwoTile = 'O';
 
         char playerTile = playerOneTile;
-        if (player != 1) playerTile = playerTwoTile;
+        if (player != 1){
+            playerTile = playerTwoTile;
+        }
 
         for (int i = 0; i < y; i++) {
 
@@ -63,7 +67,7 @@ public class Board {
         board[x][y] = ' ';
     }
 
-    private char getB(int x, int y) {
+    public char getBoardAt(int x, int y) {
         return board[x][y];
     }
 
@@ -73,51 +77,51 @@ public class Board {
             for (int j = 0; j < x; j++) {
                 //horizontal win
                 if (j + 3 < x) {
-                    if (getB(j, i) == 'X' && getB(j + 1, i) == 'X' &&
-                            getB(j + 2, i) == 'X' && getB(j + 3, i) == 'X')
+                    if (getBoardAt(j, i) == 'X' && getBoardAt(j + 1, i) == 'X' &&
+                            getBoardAt(j + 2, i) == 'X' && getBoardAt(j + 3, i) == 'X')
                     {
                         return 1;
                     }
-                    else if (getB(j, i) == 'O' && getB(j + 1, i) == 'O' &&
-                            getB(j + 2, i) == 'O' && getB(j + 3, i) == 'O')
+                    else if (getBoardAt(j, i) == 'O' && getBoardAt(j + 1, i) == 'O' &&
+                            getBoardAt(j + 2, i) == 'O' && getBoardAt(j + 3, i) == 'O')
                     {
                         return 2;
                     }
                 }
                 //vertical win
                 if (i + 3 < y) {
-                    if (getB(j, i) == 'X' && getB(j, i + 1) == 'X' &&
-                            getB(j, i + 2) == 'X' && getB(j, i + 3) == 'X')
+                    if (getBoardAt(j, i) == 'X' && getBoardAt(j, i + 1) == 'X' &&
+                            getBoardAt(j, i + 2) == 'X' && getBoardAt(j, i + 3) == 'X')
                     {
                         return 1;
                     }
-                    else if(getB(j, i) == 'O' && getB(j, i + 1) == 'O' &&
-                            getB(j, i + 2) == 'O' && getB(j, i + 3) == 'O')
+                    else if(getBoardAt(j, i) == 'O' && getBoardAt(j, i + 1) == 'O' &&
+                            getBoardAt(j, i + 2) == 'O' && getBoardAt(j, i + 3) == 'O')
                     {
                         return 2;
                     }
                 }
                 //diagonal win
                 if (i + 3 < y && j + 3 < x) {
-                    if (getB(j, i) == 'X' && getB(j+1, i+1) == 'X' &&
-                            getB(j+2, i+2) == 'X' && getB(j+3, i+3) == 'X')
+                    if (getBoardAt(j, i) == 'X' && getBoardAt(j+1, i+1) == 'X' &&
+                            getBoardAt(j+2, i+2) == 'X' && getBoardAt(j+3, i+3) == 'X')
                     {
                         return 1;
                     }
-                    else if(getB(j, i) == 'O' && getB(j+1, i + 1) == 'O' &&
-                            getB(j+2, i + 2) == 'O' && getB(j+3, i + 3) == 'O')
+                    else if(getBoardAt(j, i) == 'O' && getBoardAt(j+1, i + 1) == 'O' &&
+                            getBoardAt(j+2, i + 2) == 'O' && getBoardAt(j+3, i + 3) == 'O')
                     {
                         return 2;
                     }
                 }
                 if (i - 3 > 0 && j + 3 < x) {
-                    if (getB(j, i) == 'X' && getB(j+1, i-1) == 'X' &&
-                            getB(j+2, i-2) == 'X' && getB(j+3, i-3) == 'X')
+                    if (getBoardAt(j, i) == 'X' && getBoardAt(j+1, i-1) == 'X' &&
+                            getBoardAt(j+2, i-2) == 'X' && getBoardAt(j+3, i-3) == 'X')
                     {
                         return 1;
                     }
-                    else if(getB(j, i) == 'O' && getB(j+1, i-1) == 'O' &&
-                            getB(j+2, i-2) == 'O' && getB(j+3, i-3) == 'O')
+                    else if(getBoardAt(j, i) == 'O' && getBoardAt(j+1, i-1) == 'O' &&
+                            getBoardAt(j+2, i-2) == 'O' && getBoardAt(j+3, i-3) == 'O')
                     {
                         return 2;
                     }
@@ -135,7 +139,7 @@ public class Board {
 
                 if (j == 0) string.append(" | ");
 
-                string.append(getB(j, i));
+                string.append(getBoardAt(j, i));
                 if (j < x - 1) {
                     string.append(" - ");
                 } else {
