@@ -71,7 +71,7 @@ public class Main {
                 board.makeMove(turnChoice - 1, currentPlayer);
             }
             else{
-                turnChoice = AI(board,humanPlayer,computerPlayer);
+                turnChoice = AI(board,humanPlayer,computerPlayer,turnsPlayed);
                 board.makeMove(turnChoice, currentPlayer);
             }
 
@@ -125,9 +125,19 @@ public class Main {
 
     static int counter = 0;
 
-    static int AI(Board board, int humanPlayer, int computerPlayer){
+    static int AI(Board board, int humanPlayer, int computerPlayer, int turnsPlayed){
 
         int move = 0;
+
+        //it always picks 4 as its first move if it goes first, regardless of depth
+        //therefore it's set as its first move
+        //it is also objectively the best move it can make based on the static evaluation
+        //it is also the best move if it isnt the first player
+        if(turnsPlayed == 0 || turnsPlayed == 1){
+            move = 3; //it uses zero index so the middle = 3
+            return move;
+        }
+
         int bestScore = Integer.MIN_VALUE;
 
         for (int i = 0; i < board.getX(); i++) { //x is width
