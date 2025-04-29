@@ -29,11 +29,10 @@ public class Board {
     }
 
     public boolean checkMove(int x){
-        //
+        //checks if it's possible to make a move in a column by going up the rows and
+        //searching for empty spots
         for (int i = 0; i < y; i++) {
-            if (board[x][y - 1 - i] != playerOneTile &&
-                board[x][y - 1 - i] != playerTwoTile)
-            {
+            if (board[x][y - 1 - i] == empty){
                 return true;
             }
         }
@@ -42,11 +41,10 @@ public class Board {
 
 
     public int makeMove(int x, int player) {
-
-        char playerTile = playerOneTile;
-        if (player != 1){
-            playerTile = playerTwoTile;
-        }
+        //reworked to ternary operator thanks to (cat emoji)'s suggestion
+        char playerTile = player == 1
+                ? playerOneTile
+                : playerTwoTile;
 
         for (int i = 0; i < y; i++) {
 
@@ -75,8 +73,25 @@ public class Board {
         //1 is human win, 2 is computer win, 0 is no win / tie
         for (int i = 0; i < y; i++) {
             for (int j = 0; j < x; j++) {
-                //horizontal win
-                if (j + 3 < x) {
+
+                char check = getBoardAt(j, i);
+                //checks if the spot is empty, if it is, all checks are skipped
+                //should reduce search time a lot
+                if(check != empty) {
+
+                    //horizontal win
+                    if (j + 3 < x) {
+                        //rewrite suggestion by (cat emoji)
+                        //halves number of checks and should hopefully result in faster searches
+                        if (
+                                getBoardAt(j + 1, i) == check
+                                && getBoardAt(j + 2, i) == check
+                                && getBoardAt(j + 3, i) == check
+                        ) {
+                            return check == playerOneTile ? 1 : 2;
+                        }
+                    /*
+                    //old version
                     if (getBoardAt(j, i) == 'X' && getBoardAt(j + 1, i) == 'X' &&
                             getBoardAt(j + 2, i) == 'X' && getBoardAt(j + 3, i) == 'X')
                     {
@@ -87,9 +102,18 @@ public class Board {
                     {
                         return 2;
                     }
-                }
-                //vertical win
-                if (i + 3 < y) {
+                     */
+                    }
+                    //vertical win
+                    if (i + 3 < y) {
+                        if (
+                                getBoardAt(j, i + 1) == check
+                                && getBoardAt(j, i + 2) == check
+                                && getBoardAt(j, i + 3) == check
+                        ) {
+                            return check == playerOneTile ? 1 : 2;
+                        }
+                    /*
                     if (getBoardAt(j, i) == 'X' && getBoardAt(j, i + 1) == 'X' &&
                             getBoardAt(j, i + 2) == 'X' && getBoardAt(j, i + 3) == 'X')
                     {
@@ -100,30 +124,44 @@ public class Board {
                     {
                         return 2;
                     }
-                }
-                //diagonal win
-                if (i + 3 < y && j + 3 < x) {
-                    if (getBoardAt(j, i) == 'X' && getBoardAt(j+1, i+1) == 'X' &&
-                            getBoardAt(j+2, i+2) == 'X' && getBoardAt(j+3, i+3) == 'X')
-                    {
-                        return 1;
+                     */
                     }
-                    else if(getBoardAt(j, i) == 'O' && getBoardAt(j+1, i + 1) == 'O' &&
-                            getBoardAt(j+2, i + 2) == 'O' && getBoardAt(j+3, i + 3) == 'O')
-                    {
-                        return 2;
+                    //diagonal win
+                    if (i + 3 < y && j + 3 < x) {
+                        if (
+                                getBoardAt(j+1, i + 1) == check
+                                && getBoardAt(j+2, i + 2) == check
+                                && getBoardAt(j+3, i + 3) == check
+                        ) {
+                            return check == playerOneTile ? 1 : 2;
+                        }
+                        /*
+                        if (getBoardAt(j, i) == 'X' && getBoardAt(j + 1, i + 1) == 'X' &&
+                                getBoardAt(j + 2, i + 2) == 'X' && getBoardAt(j + 3, i + 3) == 'X') {
+                            return 1;
+                        } else if (getBoardAt(j, i) == 'O' && getBoardAt(j + 1, i + 1) == 'O' &&
+                                getBoardAt(j + 2, i + 2) == 'O' && getBoardAt(j + 3, i + 3) == 'O') {
+                            return 2;
+                        }
+                         */
                     }
-                }
-                if (i - 3 > 0 && j + 3 < x) {
-                    if (getBoardAt(j, i) == 'X' && getBoardAt(j+1, i-1) == 'X' &&
-                            getBoardAt(j+2, i-2) == 'X' && getBoardAt(j+3, i-3) == 'X')
-                    {
-                        return 1;
-                    }
-                    else if(getBoardAt(j, i) == 'O' && getBoardAt(j+1, i-1) == 'O' &&
-                            getBoardAt(j+2, i-2) == 'O' && getBoardAt(j+3, i-3) == 'O')
-                    {
-                        return 2;
+                    if (i - 3 > 0 && j + 3 < x) {
+                        if (
+                                getBoardAt(j+1, i - 1) == check
+                                        && getBoardAt(j+2, i - 2) == check
+                                        && getBoardAt(j+3, i - 3) == check
+                        ) {
+                            return check == playerOneTile ? 1 : 2;
+                        }
+                        /*
+                        if (getBoardAt(j, i) == 'X' && getBoardAt(j + 1, i - 1) == 'X' &&
+                                getBoardAt(j + 2, i - 2) == 'X' && getBoardAt(j + 3, i - 3) == 'X') {
+                            return 1;
+                        } else if (getBoardAt(j, i) == 'O' && getBoardAt(j + 1, i - 1) == 'O' &&
+                                getBoardAt(j + 2, i - 2) == 'O' && getBoardAt(j + 3, i - 3) == 'O') {
+                            return 2;
+                        }
+                         */
                     }
                 }
             }
