@@ -62,7 +62,7 @@ public class Board {
     }
 
     public void resetLastMove(int x, int y){
-        board[x][y] = ' ';
+        board[x][y] = empty;
     }
 
     public char getBoardAt(int x, int y) {
