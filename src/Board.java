@@ -90,19 +90,6 @@ public class Board {
                         ) {
                             return check == playerOneTile ? 1 : 2;
                         }
-                    /*
-                    //old version
-                    if (getBoardAt(j, i) == 'X' && getBoardAt(j + 1, i) == 'X' &&
-                            getBoardAt(j + 2, i) == 'X' && getBoardAt(j + 3, i) == 'X')
-                    {
-                        return 1;
-                    }
-                    else if (getBoardAt(j, i) == 'O' && getBoardAt(j + 1, i) == 'O' &&
-                            getBoardAt(j + 2, i) == 'O' && getBoardAt(j + 3, i) == 'O')
-                    {
-                        return 2;
-                    }
-                     */
                     }
                     //vertical win
                     if (i + 3 < y) {
@@ -113,18 +100,6 @@ public class Board {
                         ) {
                             return check == playerOneTile ? 1 : 2;
                         }
-                    /*
-                    if (getBoardAt(j, i) == 'X' && getBoardAt(j, i + 1) == 'X' &&
-                            getBoardAt(j, i + 2) == 'X' && getBoardAt(j, i + 3) == 'X')
-                    {
-                        return 1;
-                    }
-                    else if(getBoardAt(j, i) == 'O' && getBoardAt(j, i + 1) == 'O' &&
-                            getBoardAt(j, i + 2) == 'O' && getBoardAt(j, i + 3) == 'O')
-                    {
-                        return 2;
-                    }
-                     */
                     }
                     //diagonal win
                     if (i + 3 < y && j + 3 < x) {
@@ -135,15 +110,6 @@ public class Board {
                         ) {
                             return check == playerOneTile ? 1 : 2;
                         }
-                        /*
-                        if (getBoardAt(j, i) == 'X' && getBoardAt(j + 1, i + 1) == 'X' &&
-                                getBoardAt(j + 2, i + 2) == 'X' && getBoardAt(j + 3, i + 3) == 'X') {
-                            return 1;
-                        } else if (getBoardAt(j, i) == 'O' && getBoardAt(j + 1, i + 1) == 'O' &&
-                                getBoardAt(j + 2, i + 2) == 'O' && getBoardAt(j + 3, i + 3) == 'O') {
-                            return 2;
-                        }
-                         */
                     }
                     if (i - 3 > 0 && j + 3 < x) {
                         if (
@@ -153,15 +119,6 @@ public class Board {
                         ) {
                             return check == playerOneTile ? 1 : 2;
                         }
-                        /*
-                        if (getBoardAt(j, i) == 'X' && getBoardAt(j + 1, i - 1) == 'X' &&
-                                getBoardAt(j + 2, i - 2) == 'X' && getBoardAt(j + 3, i - 3) == 'X') {
-                            return 1;
-                        } else if (getBoardAt(j, i) == 'O' && getBoardAt(j + 1, i - 1) == 'O' &&
-                                getBoardAt(j + 2, i - 2) == 'O' && getBoardAt(j + 3, i - 3) == 'O') {
-                            return 2;
-                        }
-                         */
                     }
                 }
             }

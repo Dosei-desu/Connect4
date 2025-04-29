@@ -53,12 +53,6 @@ public class Main {
 
             if (currentPlayer == humanPlayer) {
                 System.out.println("Human player's turn");
-            }else{
-                System.out.println("Computer player's turn");
-            }
-
-
-            if(currentPlayer == humanPlayer) {
 
                 System.out.println("Make your move (1-7)");
                 turnChoice = makeTurnChoice(scanner);
@@ -69,17 +63,16 @@ public class Main {
                     turnChoice = makeTurnChoice(scanner);
                 }
                 board.makeMove(turnChoice - 1, currentPlayer);
-            }
-            else{
-                turnChoice = AI(board,humanPlayer,computerPlayer,turnsPlayed);
-                board.makeMove(turnChoice, currentPlayer);
-            }
 
-
-            if (currentPlayer == humanPlayer){
                 System.out.println("Human player made a move");
                 currentPlayer = computerPlayer;
-            }else{
+            }
+            else{
+                System.out.println("Computer player's turn");
+
+                turnChoice = AI(board,humanPlayer,computerPlayer,turnsPlayed);
+                board.makeMove(turnChoice, currentPlayer);
+
                 System.out.println("Computer player made a move");
                 currentPlayer = humanPlayer;
             }
@@ -128,7 +121,6 @@ public class Main {
     static int AI(Board board, int humanPlayer, int computerPlayer, int turnsPlayed){
 
         int move = 0;
-
         //it always picks 4 as its first move if it goes first, regardless of depth
         //therefore it's set as its first move
         //it is also objectively the best move it can make based on the static evaluation
