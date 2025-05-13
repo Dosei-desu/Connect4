@@ -47,7 +47,6 @@ public class Main {
         depth = setDepth;
 
         System.out.println(board.getBoard());
-        System.out.println(board.getPlayGuide());
 
         while (turnsPlayed < maxTurns) {
 
@@ -116,11 +115,12 @@ public class Main {
         return turnChoice;
     }
 
-    static int counter = 0;
+    static int counter;
 
     static int AI(Board board, int humanPlayer, int computerPlayer, int turnsPlayed){
-
+        counter = 0;
         int move = 0;
+
         //it always picks 4 as its first move if it goes first, regardless of depth
         //therefore it's set as its first move
         //it is also objectively the best move it can make based on the static evaluation
@@ -163,7 +163,6 @@ public class Main {
         Duration: %s milliseconds
         ***
         """,counter,elapsedTime);
-        counter = 0;
         return move;
     }
 

@@ -145,10 +145,17 @@ public class Board {
             if (i < y - 1) string.append("\n");
 
         }
+        string.append("\n + ");
+        for (int i = 0; i < x; i++) {
+            string.append(i + 1);
+            if (i < x - 1) string.append(" - ");
+        }
+        string.append(" + ");
 
         return string.toString();
     }
 
+    //incorporated into the board itself
     public String getPlayGuide() {
         StringBuilder string = new StringBuilder();
         string.append(" + ");
