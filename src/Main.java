@@ -114,7 +114,7 @@ public class Main {
     static int counter;
     static long timerStart;
     static long maxTimer = 15000;
-    static int maxDepth = 25; //it can manage 11 depth in 15 seconds on my laptop
+    static int maxDepth = 42; //it can manage 11 depth in 15 seconds on my laptop
 
     static int AI(Board board, int humanPlayer, int computerPlayer, int turnsPlayed) {
 
@@ -160,8 +160,9 @@ public class Main {
                 MinMax performed %s searches!
                 Duration: %s milliseconds
                 Depth: %s
+                Move: %s
                 ***
-                """, counter, elapsedTime, depth);
+                """, counter, elapsedTime, depth, aiMove.move());
         return aiMove.move();
     }
 

@@ -32,6 +32,9 @@ public class Board {
         //checks if it's possible to make a move in a column by going up the rows and
         //searching for empty spots
         for (int i = 0; i < y; i++) {
+            if(y - 1 - i < 0){
+                return false;
+            }
             if (board[x][y - 1 - i] == empty){
                 return true;
             }
